@@ -1,72 +1,97 @@
-import React, {useState} from 'react';
-import "./App.css";
+import React, { useState } from 'react';
+import './App.css';
 
-function App(){
-  const dia_semana= ["Segunda" , "Terça" , "Quarta" , "Quinta" , "Sexta" ,"Sábado" , "Domingo"];
+function App() {
+  const diasDaSemana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
 
-  const [estudos , setEstudos] = useState({
-    "Segunda" : {manha:"" , tarde: "" , noite:""},
-    "Terça" : {manha:"" , tarde: "" , noite:""},
-    "Quarta" : {manha:"" , tarde: "" , noite:""},
-    "Quinta" : {manha:"" , tarde: "" , noite:""},
-    "Sexta" : {manha:"" , tarde: "" , noite:""},
-    "Sábado" : {manha:"" , tarde: "" , noite:""},
-    "Domingo" : {manha:"" , tarde: "" , noite:""}
-    
+  const [estudos, setEstudos] = useState({
+    'Segunda-feira': { manha: '', tarde: '', noite: '' },
+    'Terça-feira': { manha: '', tarde: '', noite: '' },
+    'Quarta-feira': { manha: '', tarde: '', noite: '' },
+    'Quinta-feira': { manha: '', tarde: '', noite: '' },
+    'Sexta-feira': { manha: '', tarde: '', noite: '' },
+    'Sábado': { manha: '', tarde: '', noite: '' },
+    'Domingo': { manha: '', tarde: '', noite: '' },
   });
 
-  const [atividade , setAtividade] = useState("");
-  const [diaSelecionado , setDiaSelecionado] = useState("Segunda");
-  const[periodoSelecionado , setPeriodoSelecionado] = useState("Manhã")
+  const [atividade, setAtividade] = useState('');
+  const [diaSelecionado, setDiaSelecionado] = useState('Segunda-feira');
+  const [periodoSelecionado, setPeriodoSelecionado] = useState('manha');
 
-  const adicionar = () => {
-  if(!atividade) return;
+  const adicionarAtividade = () => {
+    if (!atividade) return;
+
     setEstudos((prevEstudos) => ({
-      ...prevEstudos, 
-        [diaSelecionado]: {
-         prevEstudos:[diaSelecionado], [periodoSelecionado]:atividade,
-        },
-      }) 
-    )
-  }
-  setAtividade("Ex:Back-end Python")
+      ...prevEstudos,
+      [diaSelecionado]: {
+        ...prevEstudos[diaSelecionado],
+        [periodoSelecionado]: atividade,
+      },
+    }));
 
-  return(
-  <div className='app-container'>
-    <h1> Gerenciamento de Estudos </h1>
+    // Limpar os campos após adicionar
+    setAtividade('');
+  };
 
-      <div className='input-container'>
-        <label> Dia </label>
-        <select value={diaSelecionado} onChange={(e) => setDiaSelecionado(e.   target.value)}> 
-        {dia_semana.map(dia =>(
-          <option key={dia} value={dia}>{dia}</option>
-        ))}
+  const limparTodasAtividades = () => {
+    const estudosLimpos = diasDaSemana.reduce((acc, dia) => {
+      acc[dia] = { manha: '', tarde: '', noite: '' };
+      return acc;
+    }, {});
+
+    setEstudos(estudosLimpos);
+  };
+
+
+  return (
+    <div className="app-container">
+      <h1>Gerenciador de Estudos 2024</h1>
+
+      <div className="input-container">
+        <label>Dia:</label>
+        <select value={diaSelecionado} onChange={(e) => setDiaSelecionado(e.target.value)}>
+          {diasDaSemana.map(dia => (
+            <option key={dia} value={dia}>{dia}</option>
+          ))}
         </select>
 
-        <label>Período</label>
-        <select value={{periodoSelecionado}} onChange = {(e) => setPeriodoSelecionado(e.target.value)}>
-
-        <option value="manha">Manhã</option>
-        <option value="tarde">Tarde</option>
-        <option value="noite">Noite</option>
-
+        <label>Período:</label>
+        <select value={periodoSelecionado} onChange={(e) => setPeriodoSelecionado(e.target.value)}>
+          <option value="manha">Manhã</option>
+          <option value="tarde">Tarde</option>
+          <option value="noite">Noite</option>
         </select>
 
         <label>O que estudar:</label>
-        <input type="text"
-        value={atividade}
-        onChange={(e) => setAtividade(e.target.value)}
-        placeholder = "Ex: Python"
+        <input
+          type="text"
+          value={atividade}
+          onChange={(e) => setAtividade(e.target.value)}
+          placeholder="Ex: Matemática"
         />
-
-        <button onClick={adicionar}>Adicionar Estudo</button>
-
+        <button onClick={adicionarAtividade}>Adicionar Estudo</button>
       </div>
-  
 
-  </div>
-  )
-};
+      {diasDaSemana.map(dia => (
+        <div key={dia} className="dia-container">
+          <h2>{dia}</h2>
+          <div className="periodo-container">
+            <strong>Manhã:</strong> {estudos[dia].manha}
+          </div>
+          <div className="periodo-container">
+            <strong>Tarde:</strong> {estudos[dia].tarde}
+          </div>
+          <div className="periodo-container">
+            <strong>Noite:</strong> {estudos[dia].noite}
+          </div>
+        </div>
+      ))}
+
+      <button onClick={limparTodasAtividades}> Limpar Atividades </button>
+    </div>
+  );
+}
+
 
 
 export default App;

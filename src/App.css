@@ -1,38 +1,92 @@
-.App {
+/* Definição de variáveis para cores */
+:root {
+  --background-color: #e6f7ff;
+  --primary-color: #26425A;
+  --secondary-color: #ffffff;
+  --text-color: #333;
+  --highlight-color: #000000;
+  --button-hover-color: #26425a5d;
+  --box-shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--secondary-color);
+  box-shadow: 0 4px 8px var(--box-shadow-color);
+}
+
+h1 {
+  color: var(--primary-color);
   text-align: center;
+  margin-bottom: 30px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.input-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 2px solid var(--primary-color);
+  border-radius: 5px;
+  background-color: var(--secondary-color);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h2 {
+  color: var(--primary-color);
+  margin-bottom: 10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.periodo-container {
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  background-color: #ffffff;
 }
 
-.App-link {
-  color: #61dafb;
+label {
+  display: inline-block;
+  width: 100px;
+  color: var(--primary-color);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input[type="text"],
+select {
+  width: calc(100% - 110px);
+  padding: 8px;
+  border: none;
+  border-bottom: 1.5px solid var(--highlight-color);
+  border-radius: 5px;
+  background-color: var(--secondary-color);
+  margin-bottom: 10px;
+}
+
+input[type="text"]:focus,
+select:focus {
+  border-color: var(--highlight-color);
+  outline-style: groove;
+}
+
+button {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+}
+
+button:hover {
+  background-color: var(--button-hover-color);
 }

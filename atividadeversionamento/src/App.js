@@ -29,7 +29,16 @@ function App() {
       },
     }));
 
-    // Limpar os campos após adicionar
+    setAtividade('');
+  };
+  const finalizarTarefa = () => {
+    setEstudos((prevEstudos) => ({
+      ...prevEstudos,
+      [diaSelecionado]: {
+        ...prevEstudos.remove,
+      },
+    }));
+
     setAtividade('');
   };
 
@@ -73,6 +82,9 @@ function App() {
           </div>
           <div className="periodo-container">
             <strong>Noite:</strong> {estudos[dia].noite}
+          </div>
+          <div>
+            <button onClick={finalizarTarefa}>Finalizar tarefa</button>
           </div>
         </div>
       ))}

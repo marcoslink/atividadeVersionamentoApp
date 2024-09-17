@@ -33,6 +33,18 @@ function App() {
     setAtividade('');
   };
 
+  const finalizarTarefa = () => {
+    setEstudos((prevEstudos) => ({
+      ...prevEstudos,
+      [diaSelecionado]: {
+        ...prevEstudos.remove,
+      },
+    }));
+
+    // Limpar os campos após adicionar
+    setAtividade('');
+  };
+
   return (
     <div className="app-container">
       <h1>Gerenciador de Estudos 2024</h1>
@@ -73,6 +85,9 @@ function App() {
           </div>
           <div className="periodo-container">
             <strong>Noite:</strong> {estudos[dia].noite}
+          </div>
+          <div>
+            <button onClick={finalizarTarefa}>Finalizar Tarefa</button>
           </div>
         </div>
       ))}

@@ -14,6 +14,16 @@ function App() {
     'Domingo': { manha: '', tarde: '', noite: '' },
   });
 
+  const [tarefasFinalizadas, setTarefasFinalizadas] = useState({
+    'Segunda-feira': { manha: '', tarde: '', noite: '' },
+    'Terça-feira': { manha: '', tarde: '', noite: '' },
+    'Quarta-feira': { manha: '', tarde: '', noite: '' },
+    'Quinta-feira': { manha: '', tarde: '', noite: '' },
+    'Sexta-feira': { manha: '', tarde: '', noite: '' },
+    'Sábado': { manha: '', tarde: '', noite: '' },
+    'Domingo': { manha: '', tarde: '', noite: '' },
+  });
+
   const [atividade, setAtividade] = useState('');
   const [diaSelecionado, setDiaSelecionado] = useState('Segunda-feira');
   const [periodoSelecionado, setPeriodoSelecionado] = useState('manha');
@@ -29,20 +39,23 @@ function App() {
       },
     }));
 
-    // Limpar os campos após adicionar
-    setAtividade('');
+    setAtividade(''); // Limpar os campos após adicionar
   };
 
-  const finalizarTarefa = () => {
-    setEstudos((prevEstudos) => ({
-      ...prevEstudos,
-      [diaSelecionado]: {
-        ...prevEstudos.remove,
+  const finalizarTarefa = (dia) => {
+    setTarefasFinalizadas((prevFinalizadas) => ({
+      ...prevFinalizadas,
+      [dia]: {
+        manha: estudos[dia].manha || prevFinalizadas[dia].manha,
+        tarde: estudos[dia].tarde || prevFinalizadas[dia].tarde,
+        noite: estudos[dia].noite || prevFinalizadas[dia].noite,
       },
     }));
 
-    // Limpar os campos após adicionar
-    setAtividade('');
+    setEstudos((prevEstudos) => ({
+      ...prevEstudos,
+      [dia]: { manha: '', tarde: '', noite: '' },
+    }));
   };
 
   return (
@@ -86,8 +99,19 @@ function App() {
           <div className="periodo-container">
             <strong>Noite:</strong> {estudos[dia].noite}
           </div>
-          <div>
-            <button onClick={finalizarTarefa}>Finalizar Tarefa</button>
+          <button onClick={() => finalizarTarefa(dia)}>Finalizar Tarefa</button>
+
+          <div className="tarefas-finalizadas">
+            <h3>Tarefas finalizadas</h3>
+            <div className="periodo-container">
+              <strong>Manhã:</strong> {tarefasFinalizadas[dia].manha}
+            </div>
+            <div className="periodo-container">
+              <strong>Tarde:</strong> {tarefasFinalizadas[dia].tarde}
+            </div>
+            <div className="periodo-container">
+              <strong>Noite:</strong> {tarefasFinalizadas[dia].noite}
+            </div>
           </div>
         </div>
       ))}

@@ -1,5 +1,5 @@
 body {
-  background-color: #e6f7ff; /* Azul claro */
+  background-color: #e6f7ff;
   color: #333;
   font-family: 'Roboto', sans-serif;
   margin: 0;
@@ -9,70 +9,107 @@ body {
 .app-container {
   max-width: 800px;
   margin: 50px auto;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: #fff; /* Fundo branco */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  border-radius: 15px;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 h1 {
-  color: #ff0000; /* Vermelho vibrante para o título principal */
+  color: #007acc;
   text-align: center;
   margin-bottom: 30px;
+  font-size: 2.5em;
 }
 
 .input-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 2px solid #66ccff;
+  border-radius: 10px;
+  background-color: #f0faff;
+}
+
+label {
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: bold;
+}
+
+select,
+input[type="text"] {
+  padding: 10px;
+  border: 1px solid #66ccff;
+  border-radius: 8px;
+  background-color: #f0faff;
+  font-size: 1em;
+  margin-bottom: 15px;
+}
+
+select:focus,
+input[type="text"]:focus {
+  border-color: #3399ff;
+  outline: none;
+  background-color: #e6f2ff;
+}
+
+button {
+  background-color: #007acc;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.2em;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #005f99;
+  transform: scale(1.05);
+}
+
+button:active {
+  background-color: #004080;
+  transform: scale(0.98);
+}
+
+.dia-container {
   margin-bottom: 20px;
   padding: 10px;
-  border: 2px solid #ff4500; /* Bordas em vermelho */
-  border-radius: 5px;
-  background-color: #ffe6e6; /* Fundo suave em tom de vermelho claro */
+  border-radius: 10px;
+  background-color: #e0f7fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-  color: #ff4500; /* Laranja vibrante para os dias da semana */
+  color: #007acc;
   margin-bottom: 10px;
+  font-size: 1.8em;
 }
 
 .periodo-container {
   margin-bottom: 10px;
-  padding: 5px;
-  border: 1px solid #ff4500; /* Bordas em vermelho */
-  border-radius: 5px;
-  background-color: #ffcccb; /* Fundo suave em tom de vermelho */
-}
-
-label {
-  display: inline-block;
-  width: 100px;
-  color: #d9534f; /* Vermelho escuro para os rótulos */
-}
-
-input[type="text"],
-select {
-  width: calc(100% - 110px);
-  padding: 8px;
-  border: 1px solid #d9534f; /* Bordas do campo de texto em vermelho */
-  border-radius: 5px;
-  background-color: #ffe4e1; /* Fundo suave no campo de entrada */
-}
-
-input[type="text"]:focus,
-select:focus {
-  border-color: #ff6347; /* Realce da borda ao focar */
-  outline: none;
-}
-
-button {
-  background-color: #ff4500; /* Vermelho */
-  color: white;
   padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
+  border: 1px solid #66ccff;
+  border-radius: 8px;
+  background-color: #f0faff;
 }
 
-button:hover {
-  background-color: #dc143c; /* Vermelho escuro */
+strong {
+  color: #333;
+  font-weight: bold;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  font-size: 0.9em;
+  color: #555;
+  background-color: #e0f7fa;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }

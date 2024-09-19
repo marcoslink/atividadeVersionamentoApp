@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
 
+
 function App() {
 
+  // Define os dias da semana que serão usados na aplicação
   const diasDaSemana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
 
   const [estudos, setEstudos] = useState({

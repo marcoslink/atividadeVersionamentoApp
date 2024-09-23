@@ -20,13 +20,13 @@
             const diasDaSemana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
 
             const [estudos, setEstudos] = useState({
-                'Segunda-feira': { manha: '', tarde: '', noite: '' },
-                'Terça-feira': { manha: '', tarde: '', noite: '' },
-                'Quarta-feira': { manha: '', tarde: '', noite: '' },
-                'Quinta-feira': { manha: '', tarde: '', noite: '' },
-                'Sexta-feira': { manha: '', tarde: '', noite: '' },
-                'Sábado': { manha: '', tarde: '', noite: '' },
-                'Domingo': { manha: '', tarde: '', noite: '' },
+                'Segunda-feira': { manha: [], tarde: [], noite: [] },
+                'Terça-feira': { manha: [], tarde: [], noite: [] },
+                'Quarta-feira': { manha: [], tarde: [], noite: [] },
+                'Quinta-feira': { manha: [], tarde: [], noite: [] },
+                'Sexta-feira': { manha: [], tarde: [], noite: [] },
+                'Sábado': { manha: [], tarde: [], noite: [] },
+                'Domingo': { manha: [], tarde: [], noite: [] },
             });
 
             const [atividade, setAtividade] = useState('');
@@ -40,11 +40,21 @@
                     ...prevEstudos,
                     [diaSelecionado]: {
                         ...prevEstudos[diaSelecionado],
-                        [periodoSelecionado]: atividade,
+                        [periodoSelecionado]: [...prevEstudos[diaSelecionado][periodoSelecionado], atividade],
                     },
                 }));
 
                 setAtividade('');
+            };
+
+            const removerAtividade = (dia, periodo, index) => {
+                setEstudos((prevEstudos) => ({
+                    ...prevEstudos,
+                    [dia]: {
+                        ...prevEstudos[dia],
+                        [periodo]: prevEstudos[dia][periodo].filter((_, i) => i !== index),
+                    },
+                }));
             };
 
             return (
@@ -79,15 +89,21 @@
                     {diasDaSemana.map(dia => (
                         <div key={dia} className="dia-container">
                             <h2>{dia}</h2>
-                            <div className="periodo-container">
-                                <strong>Manhã:</strong> {estudos[dia].manha}
-                            </div>
-                            <div className="periodo-container">
-                                <strong>Tarde:</strong> {estudos[dia].tarde}
-                            </div>
-                            <div className="periodo-container">
-                                <strong>Noite:</strong> {estudos[dia].noite}
-                            </div>
+                            {['manha', 'tarde', 'noite'].map(periodo => (
+                                <div key={periodo} className="periodo-container">
+                                    <strong>{periodo.charAt(0).toUpperCase() + periodo.slice(1)}:</strong>
+                                    <ul>
+                                        {estudos[dia][periodo].map((atividade, index) => (
+                                            <li key={index}>
+                                                {atividade}
+                                                <button className="remover-btn" onClick={() => removerAtividade(dia, periodo, index)}>
+                                                    Remover
+                                                </button>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
                         </div>
                     ))}
                 </div>

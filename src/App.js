@@ -103,9 +103,9 @@ function App() {
 
       {diasDaSemana.map(dia => (
         <div key={dia} className="dia-container">
-          <h2>{dia} 
+          <h3>{dia} 
             <button className="botao-excluir" onClick={() => excluirDia(dia)}>Excluir Tarefas</button>
-          </h2>
+          </h3>
           <div className="periodo-container">
             <strong>Manhã:</strong>
             {isEditing && diaSelecionado === dia && periodoSelecionado === 'manha' ? (
@@ -119,14 +119,14 @@ function App() {
                 <button onClick={salvarEdicao}>Salvar</button>
               </div>
             ) : (
-              <div>
+              <div style={{ flex: '1' }}>
                 <span>{estudos[dia].manha}</span>
-                {estudos[dia].manha && (
-                  <button onClick={() => iniciarEdicao(dia, 'manha')}>
-                    <i className='bx bxs-pencil'></i>
-                  </button>
-                )}
               </div>
+            )}
+            {estudos[dia].manha && (
+              <button className="botao-editar" onClick={() => iniciarEdicao(dia, 'manha')}>
+                <i className='bx bxs-pencil'></i>
+              </button>
             )}
           </div>
           <hr className="linha-separacao" />
@@ -143,14 +143,14 @@ function App() {
                 <button onClick={salvarEdicao}>Salvar</button>
               </div>
             ) : (
-              <div>
+              <div style={{ flex: '1' }}>
                 <span>{estudos[dia].tarde}</span>
-                {estudos[dia].tarde && (
-                  <button onClick={() => iniciarEdicao(dia, 'tarde')}>
-                    <i className='bx bxs-pencil'></i>
-                  </button>
-                )}
               </div>
+            )}
+            {estudos[dia].tarde && (
+              <button className="botao-editar" onClick={() => iniciarEdicao(dia, 'tarde')}>
+                <i className='bx bxs-pencil'></i>
+              </button>
             )}
           </div>
           <hr className="linha-separacao" />
@@ -167,14 +167,14 @@ function App() {
                 <button onClick={salvarEdicao}>Salvar</button>
               </div>
             ) : (
-              <div>
+              <div style={{ flex: '1' }}>
                 <span>{estudos[dia].noite}</span>
-                {estudos[dia].noite && (
-                  <button onClick={() => iniciarEdicao(dia, 'noite')}>
-                    <i className='bx bxs-pencil'></i>
-                  </button>
-                )}
               </div>
+            )}
+            {estudos[dia].noite && (
+              <button className="botao-editar" onClick={() => iniciarEdicao(dia, 'noite')}>
+                <i className='bx bxs-pencil'></i>
+              </button>
             )}
           </div>
         </div>

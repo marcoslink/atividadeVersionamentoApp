@@ -17,11 +17,12 @@ function App() {
   const [atividade, setAtividade] = useState('');
   const [diaSelecionado, setDiaSelecionado] = useState('Segunda-feira');
   const [periodoSelecionado, setPeriodoSelecionado] = useState('manha');
+ 
 
   const adicionarAtividade = () => {
     if (!atividade) return;
 
-    setEstudos((prevEstudos) => ({
+    setEstudos(prevEstudos => ({
       ...prevEstudos,
       [diaSelecionado]: {
         ...prevEstudos[diaSelecionado],
@@ -29,8 +30,19 @@ function App() {
       },
     }));
 
-    // Limpar os campos após adicionar
     setAtividade('');
+  };
+
+ 
+
+  const removerAtividade = (dia, periodo) => {
+    setEstudos(prevEstudos => ({
+      ...prevEstudos,
+      [dia]: {
+        ...prevEstudos[dia],
+        [periodo]: '',
+      },
+    }));
   };
 
   const limparTodasAtividades = () => {
@@ -38,10 +50,8 @@ function App() {
       acc[dia] = { manha: '', tarde: '', noite: '' };
       return acc;
     }, {});
-
     setEstudos(estudosLimpos);
   };
-
 
   return (
     <div className="app-container">
@@ -75,23 +85,20 @@ function App() {
       {diasDaSemana.map(dia => (
         <div key={dia} className="dia-container">
           <h2>{dia}</h2>
-          <div className="periodo-container">
-            <strong>Manhã:</strong> {estudos[dia].manha}
-          </div>
-          <div className="periodo-container">
-            <strong>Tarde:</strong> {estudos[dia].tarde}
-          </div>
-          <div className="periodo-container">
-            <strong>Noite:</strong> {estudos[dia].noite}
-          </div>
+          {['manha', 'tarde', 'noite'].map(periodo => (
+            <div key={periodo} className="periodo-container">
+              <strong>{periodo.charAt(0).toUpperCase() + periodo.slice(1)}:</strong> {estudos[dia][periodo]}
+              <button id='remover' onClick={() => removerAtividade(dia, periodo)}>Remover</button>
+            </div>
+          ))}
         </div>
       ))}
 
-      <button onClick={limparTodasAtividades}> Limpar Atividades </button>
+     
+
+      <button onClick={limparTodasAtividades}> Limpar Todas Atividades </button>
     </div>
   );
 }
-
-
 
 export default App;

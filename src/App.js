@@ -17,6 +17,8 @@ function App() {
   const [atividade, setAtividade] = useState('');
   const [diaSelecionado, setDiaSelecionado] = useState('Segunda-feira');
   const [periodoSelecionado, setPeriodoSelecionado] = useState('manha');
+  const [isEditando, setIsEditando] = useState(false);
+  const [atividadeEditada, setAtividadeEditada] = useState(''); 
  
 
   const adicionarAtividade = () => {
@@ -33,7 +35,24 @@ function App() {
     setAtividade('');
   };
 
- 
+  const iniciarEdicao = (dia, periodo) => {
+    setDiaSelecionado(dia);
+    setPeriodoSelecionado(periodo);
+    setAtividadeEditada(estudos[dia][periodo]);
+    setIsEditando(true);
+  };
+
+  const confirmarEdicao = () => {
+    setEstudos(prevEstudos => ({
+      ...prevEstudos,
+      [diaSelecionado]: {
+        ...prevEstudos[diaSelecionado],
+        [periodoSelecionado]: atividadeEditada, // Atualiza com a atividade editada
+      },
+    }));
+    setAtividadeEditada(''); // Limpa o campo de edição
+    setIsEditando(false); // Sai do modo de edição
+  };
 
   const removerAtividade = (dia, periodo) => {
     setEstudos(prevEstudos => ({
@@ -88,12 +107,23 @@ function App() {
           {['manha', 'tarde', 'noite'].map(periodo => (
             <div key={periodo} className="periodo-container">
               <strong>{periodo.charAt(0).toUpperCase() + periodo.slice(1)}:</strong> {estudos[dia][periodo]}
-              <button id='remover' onClick={() => removerAtividade(dia, periodo)}>Remover</button>
+              <button id='funcao' onClick={() => removerAtividade(dia, periodo)}>Remover</button>
+              <button id="funcao"onClick={() => iniciarEdicao(dia, periodo)}>Editar</button>
             </div>
           ))}
         </div>
       ))}
 
+    {isEditando && (
+        <div>
+          <input
+            type="text"
+            value={atividadeEditada}
+            onChange={(e) => setAtividadeEditada(e.target.value)}
+          />
+          <button onClick={confirmarEdicao}>Confirmar Edição</button>
+        </div>
+      )}
      
 
       <button onClick={limparTodasAtividades}> Limpar Todas Atividades </button>

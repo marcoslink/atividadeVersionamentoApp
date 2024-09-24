@@ -90,7 +90,7 @@ button:hover {
   background-color: var(--button-hover-color);
 }
 
-#remover{
+#funcao{
   display: flex;
   padding: 5px;
   margin-top: 10px;

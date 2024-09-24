@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-
   const diasDaSemana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
 
-  // Atualiza o estado para armazenar arrays de atividades em cada período
   const [estudos, setEstudos] = useState({
     'Segunda-feira': { manha: [], tarde: [], noite: [] },
     'Terça-feira': { manha: [], tarde: [], noite: [] },
@@ -17,28 +15,30 @@ function App() {
   });
 
   const [atividade, setAtividade] = useState('');
+  const [horas, setHoras] = useState(''); // Estado para armazenar as horas de estudo
   const [diaSelecionado, setDiaSelecionado] = useState('Segunda-feira');
   const [periodoSelecionado, setPeriodoSelecionado] = useState('manha');
 
-  // Função para adicionar uma atividade ao período e dia selecionado
   const adicionarAtividade = () => {
-    if (!atividade) return;
+    if (!atividade || !horas) return;
+
+    const estudoCompleto = `${atividade} - ${horas} horas`;
 
     setEstudos((prevEstudos) => ({
       ...prevEstudos,
       [diaSelecionado]: {
         ...prevEstudos[diaSelecionado],
-        [periodoSelecionado]: [...prevEstudos[diaSelecionado][periodoSelecionado], atividade], // Adiciona a atividade ao array
+        [periodoSelecionado]: [...prevEstudos[diaSelecionado][periodoSelecionado], estudoCompleto],
       },
     }));
     setAtividade('');
+    setHoras('');
   };
 
-  // Função para remover uma atividade específica
   const removerAtividade = (dia, periodo, index) => {
     setEstudos((prevEstudos) => {
       const novasAtividades = [...prevEstudos[dia][periodo]];
-      novasAtividades.splice(index, 1); // Remove a atividade pelo índice
+      novasAtividades.splice(index, 1);
       return {
         ...prevEstudos,
         [dia]: {
@@ -87,6 +87,15 @@ function App() {
           onChange={(e) => setAtividade(e.target.value)}
           placeholder="Ex: Matemática"
         />
+
+        <label>Horas de Estudo:</label>
+        <input
+          type="number"
+          value={horas}
+          onChange={(e) => setHoras(e.target.value)}
+          placeholder="Ex: 2"
+        />
+
         <button onClick={adicionarAtividade}>Adicionar Estudo</button>
       </div>
 
@@ -109,7 +118,7 @@ function App() {
         </div>
       ))}
       <button className="limpar-button" onClick={limparEstudos}>
-        <i className='bx bxs-trash'></i> Limpar Estudos 
+        Limpar Estudos
       </button>
     </div>
   );

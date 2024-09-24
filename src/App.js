@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-
   const diasDaSemana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
 
   const [estudos, setEstudos] = useState({
@@ -18,6 +17,8 @@ function App() {
   const [atividade, setAtividade] = useState('');
   const [diaSelecionado, setDiaSelecionado] = useState('Segunda-feira');
   const [periodoSelecionado, setPeriodoSelecionado] = useState('manha');
+  const [isEditing, setIsEditing] = useState(false); 
+  const [novoConteudo, setNovoConteudo] = useState(''); 
 
   const adicionarAtividade = () => {
     if (!atividade) return;
@@ -29,6 +30,7 @@ function App() {
         [periodoSelecionado]: atividade,
       },
     }));
+
     setAtividade('');
   };
 
@@ -49,6 +51,25 @@ function App() {
       ...prevEstudos,
       [dia]: { manha: '', tarde: '', noite: '' },
     }));
+  };
+
+  const iniciarEdicao = (dia, periodo) => {
+    setDiaSelecionado(dia);
+    setPeriodoSelecionado(periodo);
+    setNovoConteudo(estudos[dia][periodo]); 
+    setIsEditing(true);
+  };
+
+  const salvarEdicao = () => {
+    setEstudos((prevEstudos) => ({
+      ...prevEstudos,
+      [diaSelecionado]: {
+        ...prevEstudos[diaSelecionado],
+        [periodoSelecionado]: novoConteudo,
+      },
+    }));
+    setIsEditing(false);
+    setNovoConteudo('');
   };
 
   return (
@@ -82,19 +103,79 @@ function App() {
 
       {diasDaSemana.map(dia => (
         <div key={dia} className="dia-container">
-          <h3>{dia} 
+          <h2>{dia} 
             <button className="botao-excluir" onClick={() => excluirDia(dia)}>Excluir Tarefas</button>
-          </h3>
+          </h2>
           <div className="periodo-container">
-            <strong>Manhã:</strong> {estudos[dia].manha}
+            <strong>Manhã:</strong>
+            {isEditing && diaSelecionado === dia && periodoSelecionado === 'manha' ? (
+              <div>
+                <input 
+                  type="text" 
+                  value={novoConteudo} 
+                  onChange={(e) => setNovoConteudo(e.target.value)} 
+                  placeholder="Novo conteúdo" 
+                />
+                <button onClick={salvarEdicao}>Salvar</button>
+              </div>
+            ) : (
+              <div>
+                <span>{estudos[dia].manha}</span>
+                {estudos[dia].manha && (
+                  <button onClick={() => iniciarEdicao(dia, 'manha')}>
+                    <i className='bx bxs-pencil'></i>
+                  </button>
+                )}
+              </div>
+            )}
           </div>
           <hr className="linha-separacao" />
           <div className="periodo-container">
-            <strong>Tarde:</strong> {estudos[dia].tarde}
+            <strong>Tarde:</strong>
+            {isEditing && diaSelecionado === dia && periodoSelecionado === 'tarde' ? (
+              <div>
+                <input 
+                  type="text" 
+                  value={novoConteudo} 
+                  onChange={(e) => setNovoConteudo(e.target.value)} 
+                  placeholder="Novo conteúdo" 
+                />
+                <button onClick={salvarEdicao}>Salvar</button>
+              </div>
+            ) : (
+              <div>
+                <span>{estudos[dia].tarde}</span>
+                {estudos[dia].tarde && (
+                  <button onClick={() => iniciarEdicao(dia, 'tarde')}>
+                    <i className='bx bxs-pencil'></i>
+                  </button>
+                )}
+              </div>
+            )}
           </div>
           <hr className="linha-separacao" />
           <div className="periodo-container">
-            <strong>Noite:</strong> {estudos[dia].noite}
+            <strong>Noite:</strong>
+            {isEditing && diaSelecionado === dia && periodoSelecionado === 'noite' ? (
+              <div>
+                <input 
+                  type="text" 
+                  value={novoConteudo} 
+                  onChange={(e) => setNovoConteudo(e.target.value)} 
+                  placeholder="Novo conteúdo" 
+                />
+                <button onClick={salvarEdicao}>Salvar</button>
+              </div>
+            ) : (
+              <div>
+                <span>{estudos[dia].noite}</span>
+                {estudos[dia].noite && (
+                  <button onClick={() => iniciarEdicao(dia, 'noite')}>
+                    <i className='bx bxs-pencil'></i>
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         </div>
       ))}

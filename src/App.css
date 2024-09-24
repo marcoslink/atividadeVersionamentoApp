@@ -1,0 +1,138 @@
+/* Importando fontes */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+/* Estilizações gerais */
+:root{
+  --corAzul: #01d1c7;
+  --corAzul2: #03b1a8;
+  --corBranca: #ffffff;
+  --corBranca2: #f1f1f1;
+  --corCinza: #333;
+  --corCinza2: #ced4da;
+  --corCinza3: #464646;
+  --corFundo: #e6e4e4;
+}
+
+*{
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background: var(--corCinza3);
+  color: var(--corCinza);
+  margin: 0;
+  padding: 20px;
+}
+
+.app-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background: var(--corFundo);
+  border-radius: 4px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: var(--corAzul);
+  font-size: 2.5em;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+select, 
+input[type='text'] {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid var(--corCinza2);
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+.periodo-input {
+  outline: 2px solid var(--corAzul);
+  outline-offset: 2px;
+  transition: outline-color 0.3s;
+}
+
+.periodo-input:focus {
+  outline-color: var(--corAzul2);
+}
+
+/* Linha de separação */
+.linha-separacao {
+  border: none; 
+  border-top: 1px solid var(--corCinza2);
+  margin: 10px 0;
+}
+
+/* Estilização do botão */
+button {
+  padding: 10px 15px;
+  background-color: var(--corAzul2);
+  color: var(--corBranca);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: var(--corCinza3);
+}
+
+.dia-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  background: var(--corBranca2);
+  border-radius: 4px;
+  border-left: 4px solid var(--corAzul);
+  position: relative;
+}
+.periodo-container {
+  margin: 5px 0;
+}
+
+.limpar-button {
+  background-color: var(--corAzul2); 
+  color: var(--corBranca);
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+  margin-top: 15px;
+  margin-bottom: 15px;
+  transition: background-color 0.3s;
+}
+
+.limpar-button:hover {
+  background-color: var(--corCinza3); 
+}
+
+strong {
+  color: var(--corAzul);
+}
+
+.botao-excluir {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  font-size: 0.9em; 
+}
+
